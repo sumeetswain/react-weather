@@ -1,0 +1,17 @@
+.Card {
+  display: flex;
+  flex-direction: column;
+  color: black;
+  height: 500px;
+  width: 500px;
+  background: linear-gradient(135deg, #f9faf9, #cde4b1, #8bf6c9);
+  border-radius: 10px;
+  justify-content: center;
+  align-items: center;
+}
+.Card button {
+  margin-top: 20px;
+}
+.Card h1 {
+  color: #0c8477;
+}
