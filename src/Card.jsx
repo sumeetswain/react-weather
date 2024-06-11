@@ -1,9 +1,11 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import "./Card.css";
 import axios from "axios";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import Weather from "./Weather";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 export default function Card() {
   const [inputValue, setInputValue] = useState("");
   const [data, setData] = useState({});
@@ -24,28 +26,40 @@ export default function Card() {
           humidity: Math.floor(res.data.main.humidity),
         };
         setData(result);
-        console.log(result);
-        console.log(data);
+      })
+      .catch((e) => {
+        toast(e.response.data.message + " enter city name!");
       });
   };
-  // useEffect(() => {
-  //   loadData();
-  // }, []);
   return (
-    <div className="Card">
-      <h1>Weather</h1>
-      <TextField
-        id="outlined-basic"
-        label="Enter City Name"
-        variant="outlined"
-        color="success"
-        value={inputValue}
-        onChange={handleInputChange}
+    <>
+      <div className="Card">
+        <h1>Weather</h1>
+        <TextField
+          id="outlined-basic"
+          label="Enter City Name"
+          variant="outlined"
+          color="success"
+          value={inputValue}
+          onChange={handleInputChange}
+        />
+        <Button onClick={loadData} variant="text" color="success">
+          Submit
+        </Button>
+        <Weather data={data} />
+      </div>
+      <ToastContainer
+        position="top-right"
+        autoClose={3000}
+        hideProgressBar={true}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
       />
-      <Button onClick={loadData} variant="text" color="success">
-        Submit
-      </Button>
-      <Weather data={data} />
-    </div>
+    </>
   );
 }
